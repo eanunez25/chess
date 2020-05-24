@@ -1,4 +1,5 @@
 class Board
+  attr_accessor :win, :board
   
   def initialize
     @win = false
@@ -7,15 +8,17 @@ class Board
 
   def create_board
     board = Array.new(8) { Array.new(8) }
-    
     8.times do |idx|
       8.times do |value|
         board[idx][value] = "-"
       end
     end
+    board
+  end
 
+  def display_board
     8.times do |num|
-      puts board[num].join
+      puts @board[num].join
     end
   end
 
@@ -36,3 +39,4 @@ class Piece
 end
 
 board = Board.new
+board.display_board
