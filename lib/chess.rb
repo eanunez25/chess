@@ -4,6 +4,7 @@ class Board
   def initialize
     @win = false
     @board = create_board
+    @obj_board = create_board
     @player1 = Player.new("Player 1", "white")
     @player2 = Player.new("Player 2", "black")
   end
@@ -19,6 +20,21 @@ class Board
       players_arr.each do |player|
         make_legal_move(player)
         return if @win == true
+      end
+    end
+  end
+
+  def make_legal_move(player)
+    legal_move = false
+    puts "#{player.name}'s turn'"
+    until legal_move == true
+      print "Piece to move: "
+      selection = gets.chomp
+      selection = selection.to_s.split('').map(&:to_i)
+      object = @obj_board[selection[0]][selection[1]]
+      if object.player == player.color
+        legal_move = true
+        puts "Selection: #{player.name}'s #{object.type} on #{selection}"
       end
     end
   end
@@ -92,6 +108,7 @@ class Board
   def set_initial_locations
     @pieces_arr.each do |obj|
       @board[obj.location[0]][obj.location[1]] = obj.image
+      @obj_board[obj.location[0]][obj.location[1]] = obj
     end
   end
 
