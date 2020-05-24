@@ -1,9 +1,21 @@
 class Board
-  attr_accessor :win, :board
+  attr_accessor :win, :board, :player1, :player2
   
   def initialize
     @win = false
     @board = create_board
+    @player1 = Player.new("Player 1", "white")
+    @player2 = Player.new("Player 2", "black")
+  end
+
+  def gameplay
+    setup_game
+  end
+
+  def setup_game
+    create_pieces
+    set_initial_locations
+    display_board
   end
 
   def create_board
@@ -127,13 +139,10 @@ class Player
 
   def initialize(name, color)
     @name = name
-    @coloro = color
+    @color = color
   end
 end
 
 
 board = Board.new
-board.create_pieces
-board.set_initial_locations
-board.display_board
-
+board.gameplay
