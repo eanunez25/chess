@@ -38,8 +38,10 @@ class Board
   end 
 
   def move_to(idx, value, object)
+    @board[object.location[0]][object.location[1]] = "-"
+    @obj_board[object.location[0]][object.location[1]] = nil
     @board[idx][value] = object.image
-    @board[idx][value] = object
+    @obj_board[idx][value] = object
   end
 
   def legal_selection(player)
