@@ -57,14 +57,19 @@ class Board
     @black_pawn7 = Pawn.new("pawn", "black", "\u265F", [1,6])
     @black_pawn8 = Pawn.new("pawn", "black", "\u265F", [1,7])
     
-    pieces_arr = [@white_king, @white_queen, @white_rook1, @white_rook2, @white_bishop1, @white_bishop2, @white_knight1,
+    @pieces_arr = [@white_king, @white_queen, @white_rook1, @white_rook2, @white_bishop1, @white_bishop2, @white_knight1,
                   @white_knight2, @white_pawn1, @white_pawn2, @white_pawn3, @white_pawn4, @white_pawn5, @white_pawn6,
                   @white_pawn7, @white_pawn8,
                   @black_king, @black_queen, @black_rook1, @black_rook2, @black_bishop1, @black_bishop2, @black_knight1,
                   @black_knight2, @black_pawn1, @black_pawn2, @black_pawn3, @black_pawn4, @black_pawn5, @black_pawn6,
                   @black_pawn7, @black_pawn8]
 
-    puts pieces_arr
+  end
+
+  def set_initial_locations
+    @pieces_arr.each do |obj|
+      @board[obj.location[0]][obj.location[1]] = obj.image
+    end
   end
 
 end
@@ -129,5 +134,6 @@ end
 
 board = Board.new
 board.create_pieces
+board.set_initial_locations
 board.display_board
 
