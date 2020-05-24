@@ -25,16 +25,23 @@ class Board
   end
 
   def make_legal_move(player)
-    legal_move = false
+    puts legal_selection(player)
+  end
+
+  def legal_selection(player)
+    legal_selection = false
     puts "#{player.name}'s turn'"
-    until legal_move == true
+    until legal_selection == true
       print "Piece to move: "
       selection = gets.chomp
       selection = selection.to_s.split('').map(&:to_i)
       object = @obj_board[selection[0]][selection[1]]
       if object.player == player.color
-        legal_move = true
+        legal_selection = true
         puts "Selection: #{player.name}'s #{object.type} on #{selection}"
+        return selection
+      else  
+        puts "Not a legal selection."
       end
     end
   end
