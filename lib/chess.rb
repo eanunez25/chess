@@ -40,6 +40,23 @@ class Board
     @white_pawn7 = Pawn.new("pawn", "white", "\u2659", [6,6])
     @white_pawn8 = Pawn.new("pawn", "white", "\u2659", [6,7])
 
+    @black_king = King.new("king", "black", "\u265A", [0,3])
+    @black_queen = Queen.new("queen", "black", "\u265B", [0,4])
+    @black_rook1 = Rook.new("rook", "black", "\u265C", [0,0])
+    @black_rook2 = Rook.new("rook", "black", "\u265C", [0,7])
+    @black_bishop1 = Bishop.new("bishop", "black", "\u265D", [0,2])
+    @black_bishop2 = Bishop.new("bishop", "black", "\u265D", [0,5])
+    @black_knight1 = Knight.new("knight", "black", "\u265E", [0,1])
+    @black_knight2 = Knight.new("knight", "black", "\u265E", [0,6])
+    @black_pawn1 = Pawn.new("pawn", "black", "\u265F", [1,0])
+    @black_pawn2 = Pawn.new("pawn", "black", "\u265F", [1,1])
+    @black_pawn3 = Pawn.new("pawn", "black", "\u265F", [1,2])
+    @black_pawn4 = Pawn.new("pawn", "black", "\u265F", [1,3])
+    @black_pawn5 = Pawn.new("pawn", "black", "\u265F", [1,4])
+    @black_pawn6 = Pawn.new("pawn", "black", "\u265F", [1,5])
+    @black_pawn7 = Pawn.new("pawn", "black", "\u265F", [1,6])
+    @black_pawn8 = Pawn.new("pawn", "black", "\u265F", [1,7])
+    
   end
 
 end
