@@ -19,18 +19,32 @@ class Board
     until @win == true do
       players_arr.each do |player|
         make_legal_move(player)
+        display_board
         return if @win == true
       end
     end
   end
 
   def make_legal_move(player)
-    puts legal_selection(player)
+    move_piece(legal_selection(player))
+  end
+
+  def move_piece(selection)
+    print "Move to: "
+    new_spot = gets.chomp
+    new_spot = new_spot.to_s.split('').map(&:to_i)
+    object = @obj_board[selection[0]][selection[1]]
+    move_to(new_spot[0], new_spot[1], object)
+  end 
+
+  def move_to(idx, value, object)
+    @board[idx][value] = object.image
+    @board[idx][value] = object
   end
 
   def legal_selection(player)
     legal_selection = false
-    puts "#{player.name}'s turn'"
+    puts "#{player.name}'s turn"
     until legal_selection == true
       print "Piece to move: "
       selection = gets.chomp
@@ -38,7 +52,7 @@ class Board
       object = @obj_board[selection[0]][selection[1]]
       if object.player == player.color
         legal_selection = true
-        puts "Selection: #{player.name}'s #{object.type} on #{selection}"
+        puts "Selection: #{object.type.capitalize} on #{selection}"
         return selection
       else  
         puts "Not a legal selection."
