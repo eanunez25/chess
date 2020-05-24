@@ -10,6 +10,17 @@ class Board
 
   def gameplay
     setup_game
+    take_turns
+  end
+
+  def take_turns
+    players_arr = [@player1, @player2]
+    until @win == true do
+      players_arr.each do |player|
+        make_legal_move(player)
+        return if @win == true
+      end
+    end
   end
 
   def setup_game
