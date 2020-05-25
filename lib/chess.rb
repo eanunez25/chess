@@ -38,10 +38,13 @@ class Board
   end 
 
   def move_to(idx, value, object)
+    # remove piece from old spot
     @board[object.location[0]][object.location[1]] = "-"
     @obj_board[object.location[0]][object.location[1]] = nil
+    # place piece in new spot
     @board[idx][value] = object.image
     @obj_board[idx][value] = object
+    object.location = [idx,value]
   end
 
   def legal_selection(player)
