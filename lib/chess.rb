@@ -34,7 +34,7 @@ class Board
     new_spot = gets.chomp
     new_spot = new_spot.to_s.split('').map(&:to_i)
     object = @obj_board[selection[0]][selection[1]]
-    move_to(new_spot[0], new_spot[1], object)
+    move_to(new_spot[0], new_spot[1], object) if object.legal_move?(new_spot) == true
   end 
 
   def move_to(idx, value, object)
@@ -185,6 +185,14 @@ end
 class Pawn < Piece
   def initialize(type, player, image, location)
     super
+  end
+
+  def legal_move?(selection)
+    pp selection
+    puts @type
+    legal_moves = []
+    legal_moves.include?(selection)
+    true
   end
 end
 
