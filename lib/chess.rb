@@ -1,5 +1,5 @@
 class Board
-  attr_accessor :win, :board, :player1, :player2
+  attr_accessor :win, :board, :player1, :player2, :obj_board
   
   def initialize
     @win = false
@@ -44,7 +44,7 @@ class Board
     # place piece in new spot
     @board[idx][value] = object.image
     @obj_board[idx][value] = object
-    object.location = [idx,value]
+    object.location = [idx, value]
   end
 
   def legal_selection(player)
@@ -55,10 +55,14 @@ class Board
       selection = gets.chomp
       selection = selection.to_s.split('').map(&:to_i)
       object = @obj_board[selection[0]][selection[1]]
-      if object.player == player.color
-        legal_selection = true
-        puts "Selection: #{object.type.capitalize} on #{selection}"
-        return selection
+      if object != "-"
+        if object.player == player.color
+          legal_selection = true
+          puts "Selection: #{object.type.capitalize} on #{selection}"
+          return selection
+        else  
+          puts "Not a legal selection."
+        end
       else  
         puts "Not a legal selection."
       end
@@ -188,12 +192,19 @@ class Pawn < Piece
   end
 
   def legal_move?(selection)
-    pp selection
-    puts @type
+    row = @location[0]
+    column = @location[1]
     legal_moves = []
+ 
+    legal_moves << [row - 1, column] if @player == "white"
+    legal_moves << [row - 2, column] if @player == "white" && row == 6
+    legal_moves << [row + 1, column] if @player == "black"
+    legal_moves << [row + 2, column] if @player == "black" && row == 1
+
+    puts "true" if legal_moves.include?(selection) == true
     legal_moves.include?(selection)
-    true
   end
+
 end
 
 class Player 
