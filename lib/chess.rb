@@ -30,17 +30,23 @@ class Board
   end
 
   def move_piece(selection)
-    print "Move to: "
-    new_spot = gets.chomp
-    new_spot = new_spot.to_s.split('').map(&:to_i)
-    object = @obj_board[selection[0]][selection[1]]
-    move_to(new_spot[0], new_spot[1], object) if object.legal_move?(new_spot) == true
+    legal = false
+    until legal == true
+      print "Move to: "
+      new_spot = gets.chomp
+      new_spot = new_spot.to_s.split('').map(&:to_i)
+      object = @obj_board[selection[0]][selection[1]]
+      if object.legal_move?(new_spot) == true
+        move_to(new_spot[0], new_spot[1], object)
+        legal = true
+      end 
+    end
   end 
 
   def move_to(idx, value, object)
     # remove piece from old spot
     @board[object.location[0]][object.location[1]] = "-"
-    @obj_board[object.location[0]][object.location[1]] = nil
+    @obj_board[object.location[0]][object.location[1]] = "-"
     # place piece in new spot
     @board[idx][value] = object.image
     @obj_board[idx][value] = object
