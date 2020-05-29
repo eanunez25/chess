@@ -40,7 +40,7 @@ class Board
       new_spot = gets.chomp
       new_spot = new_spot.to_s.split('').map(&:to_i)
       object = @obj_board[selection[0]][selection[1]]
-      if object.legal_move?(@obj_board, new_spot) == true
+      if object.possible_moves(@obj_board).include?(new_spot) == true
         move_to(new_spot[0], new_spot[1], object)
         legal = true
       end 
@@ -66,7 +66,7 @@ class Board
       selection = selection.to_s.split('').map(&:to_i)
       object = @obj_board[selection[0]][selection[1]]
       if object != "-"
-        if object.player == player.color
+        if object.player == player.color && object.possible_moves(@obj_board).length != 0
           legal_selection = true
           puts "Selection: #{object.type.capitalize} on #{selection}"
           pp object.possible_moves(@obj_board)
@@ -206,22 +206,24 @@ class Pawn < Piece
     row = @location[0]
     column = @location[1]
     legal_moves = []
- 
-    legal_moves << [row - 1, column] if @player == "white"
-    legal_moves << [row - 2, column] if @player == "white" && row == 6
-    legal_moves << [row + 1, column] if @player == "black"
-    legal_moves << [row + 2, column] if @player == "black" && row == 1
     
+    # move forward one spot
+    legal_moves << [row - 1, column] if @player == "white" && arr[row - 1][column] == "-"
+    legal_moves << [row + 1, column] if @player == "black" && arr[row + 1][column] == "-"
+
+    # move forward two spots
+    legal_moves << [row - 2, column] if @player == "white" && row == 6 && arr[row - 1][column] == "-" && arr[row - 2][column] == "-"
+    legal_moves << [row + 2, column] if @player == "black" && row == 1 && arr[row + 1][column] == "-" && arr[row + 2][column] == "-"
+
+    # eat to the left
     legal_moves << [row - 1, column - 1] if arr[row - 1][column - 1].player == "black" if arr[row - 1][column - 1] != "-" && @player == "white" && column > 0
-    legal_moves << [row - 1, column + 1] if arr[row - 1][column + 1].player == "black" if arr[row - 1][column + 1] != "-" && @player == "white"
     legal_moves << [row + 1, column + 1] if arr[row + 1][column + 1].player == "white" if arr[row + 1][column + 1] != "-" && @player == "black" 
+
+    # eat to the right
+    legal_moves << [row - 1, column + 1] if arr[row - 1][column + 1].player == "black" if arr[row - 1][column + 1] != "-" && @player == "white"
     legal_moves << [row + 1, column - 1] if arr[row + 1][column - 1].player == "white" if arr[row + 1][column - 1] != "-" && @player == "black" && column > 0
 
     legal_moves
-  end
-
-  def legal_move?(arr, selection)
-    self.possible_moves(arr).include?(selection)
   end
 
 end
