@@ -217,10 +217,10 @@ class Pawn < Piece
 
     # eat to the left
     legal_moves << [row - 1, column - 1] if arr[row - 1][column - 1].player == "black" if arr[row - 1][column - 1] != "-" && @player == "white" && column > 0
-    legal_moves << [row + 1, column + 1] if arr[row + 1][column + 1].player == "white" if arr[row + 1][column + 1] != "-" && @player == "black" 
+    legal_moves << [row + 1, column + 1] if arr[row + 1][column + 1].player == "white" if arr[row + 1][column + 1] != "-" && @player == "black"  && column < 7
 
     # eat to the right
-    legal_moves << [row - 1, column + 1] if arr[row - 1][column + 1].player == "black" if arr[row - 1][column + 1] != "-" && @player == "white"
+    legal_moves << [row - 1, column + 1] if arr[row - 1][column + 1].player == "black" if arr[row - 1][column + 1] != "-" && @player == "white" && column < 7
     legal_moves << [row + 1, column - 1] if arr[row + 1][column - 1].player == "white" if arr[row + 1][column - 1] != "-" && @player == "black" && column > 0
 
     legal_moves
