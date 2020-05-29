@@ -65,6 +65,7 @@ class Board
         if object.player == player.color
           legal_selection = true
           puts "Selection: #{object.type.capitalize} on #{selection}"
+          pp object.possible_moves
           return selection
         else  
           puts "Not a legal selection."
@@ -197,7 +198,7 @@ class Pawn < Piece
     super
   end
 
-  def legal_move?(selection)
+  def possible_moves
     row = @location[0]
     column = @location[1]
     legal_moves = []
@@ -207,8 +208,11 @@ class Pawn < Piece
     legal_moves << [row + 1, column] if @player == "black"
     legal_moves << [row + 2, column] if @player == "black" && row == 1
 
-    puts "true" if legal_moves.include?(selection) == true
-    legal_moves.include?(selection)
+    legal_moves
+  end
+
+  def legal_move?(selection)
+    self.possible_moves.include?(selection)
   end
 
 end
